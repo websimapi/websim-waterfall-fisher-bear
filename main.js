@@ -45,6 +45,7 @@ function startGame() {
         scene.children.forEach(child => { if (child.name === 'fish') scene.remove(child); });
     }
     activeFish = createFish(scene, gameState.score);
+    bear.visible = true; // Make bear visible for gameplay
 }
 
 function gameOver() {
@@ -177,6 +178,8 @@ if (!showcaseFish) {
     showcaseFish.userData.velocity.set(0, 0, 0);
     showcaseFish.userData.swimAmplitude = 0;
 }
+showcaseFish.visible = false; // Hide showcase fish on start screen
+bear.visible = false; // Hide main bear on start screen
 
 // --- GAME LOOP (trimmed) ---
 const gravity = new THREE.Vector3(0, -0.05, 0);
@@ -204,8 +207,7 @@ function animate() {
             bear.rotation.z += 0.05;
         }
     } else { // IDLE (title screen)
-        bear.rotation.y += 0.01;
-        if (showcaseFish) showcaseFish.rotation.y += 0.02;
+        // Bear and showcase fish are hidden, so no updates needed here.
     }
     renderer.render(scene, camera);
 }
